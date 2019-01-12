@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/jquery-3.3.1.js"></script>
+</head>
+
+<body>
+    <!-- <form> -->
+    <label for="user">用户名：</label>
+    <input type="text" id="user" value="">
+    <label for="pwd">密码：</label>
+    <input type="password" id="pwd" value="">
+    <button id="confirm">确定</button>
+    <!-- </form> -->
+    <script>
+        var user = document.getElementById('user')
+        var pwd = document.getElementById('pwd')
+        user.addEventListener('change', function (e) {
+            user.value = e.target.value
+        })
+        pwd.addEventListener('change', function (e) {
+            pwd.value = e.target.value
+        })
+        document.getElementById('confirm').addEventListener('click', function (event) {
+            $.ajax({
+                type: "POST",
+                url: "/login",
+                data: {
+                    name: user.value,
+                    password: pwd.value
+                },
+                success: function (data) {
+                    console.log(data)
+                    if (data.ret_code === 0) {
+                        window.location.href = '/home'
+                    }
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>
